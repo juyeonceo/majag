@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>3D Platformer Adventure // 언리얼 스타일 플랫포머</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- 3D WebGL 캔버스 컨테이너 -->
+  <div id="game-container"></div>
+
+  <!-- 인게임 HUD (헤드업 디스플레이) -->
+  <div id="hud">
+    <div class="hud-item coin-box">
+      <span class="icon">🪙</span>
+      <span id="coin-counter">0 / 12</span>
+    </div>
+    <div class="hud-item timer-box">
+      <span class="icon">⏱️</span>
+      <span id="timer">00:00.0</span>
+    </div>
+    <div class="hud-item jump-indicator">
+      <span class="jump-pill" id="jump-1">JUMP 1</span>
+      <span class="jump-pill" id="jump-2">JUMP 2</span>
+    </div>
+  </div>
+
+  <!-- 조작 안내 가이드 -->
+  <div id="controls-guide">
+    <div class="guide-row"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> / <span class="key">방향키</span> : 이동</div>
+    <div class="guide-row"><span class="key">Space</span> : 점프 (공중에서 한번 더 누르면 <b>2단 점프</b>)</div>
+    <div class="guide-row"><span class="key">마우스 드래그</span> : 카메라 회전 | <span class="key">R</span> : 재시작</div>
+  </div>
+
+  <!-- 낙사 시 리스폰 페이드 오버레이 -->
+  <div id="fade-overlay"></div>
+
+  <!-- 스테이지 클리어 UI (WBP_ClearScreen 스타일) -->
+  <div id="clear-screen" class="hidden">
+    <div class="clear-card">
+      <div class="clear-badge">VICTORY</div>
+      <h1 class="clear-title">STAGE CLEAR!</h1>
+      <p class="clear-subtitle">모든 장애물을 돌파하고 목표 지점에 도달했습니다!</p>
+      
+      <div class="clear-stats">
+        <div class="stat-box">
+          <span class="stat-label">획득 코인</span>
+          <span class="stat-value" id="final-coins">12 / 12</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">클리어 타임</span>
+          <span class="stat-value" id="final-time">00:45.2</span>
+        </div>
+      </div>
+
+      <button id="retry-btn" class="btn-retry">🔄 다시 도전하기 (RETRY)</button>
+    </div>
+  </div>
+
+  <!-- 모바일 터치 조작 버튼 (모바일 접속 시 노출) -->
+  <div id="mobile-controls">
+    <div id="touch-joystick">
+      <div id="joystick-knob"></div>
+    </div>
+    <button id="touch-jump" class="touch-btn">JUMP</button>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
